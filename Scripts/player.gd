@@ -14,13 +14,21 @@ extends CharacterBody3D
 @export var follow_lerp_factor : float
 @export var jump_limit : int = 2
 
+@export_group("Game Juice")
+@export var jumpStretchSize : Vector3
+
+# Booleans
+var is_grounded = false
+
 # Onready Variables
 @onready var model = $gobot
 @onready var animation = $gobot/AnimationPlayer
-@onready var spring_arm = $SpringArm3D
+@onready var spring_arm = %Gimbal
+
+@onready var particle_trail = $ParticleTrail
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
 # ---------- FUNCTIONS ---------- #
 
@@ -36,20 +44,30 @@ func _process(delta):
 	spring_arm.position = lerp(spring_arm.position, position, delta * follow_lerp_factor)
 	
 	# Player Rotation
-	if velocity.length() > 4:
+	if velocity.length() > 5:
 		var look_direction = Vector2(velocity.z, velocity.x)
 		model.rotation.y = lerp_angle(model.rotation.y, look_direction.angle(), delta * 12)
 	
-	# Gravity
-	if !is_on_floor():
-		velocity.y -= gravity * delta
-	else:
-		jump_limit = 2
+	# Check if player is grounded or not
+	is_grounded = true if is_on_floor() else false
 	
+	# If grounded, reset the jump count else gravity
+	if is_grounded:
+		jump_limit = 2
+	else:
+		velocity.y -= gravity * delta
+
 	# Jumping
 	if Input.is_action_just_pressed("jump") and jump_limit > 0:
+		jumpTween()
 		velocity.y = jump_force
 		jump_limit -= 1
+
+
+func jumpTween():
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", jumpStretchSize, 0.1)
+	tween.tween_property(self, "scale", Vector3(1,1,1), 0.1)
 
 
 # Get Player Input
@@ -67,9 +85,12 @@ func get_input(_delta):
 
 # Handle Player Animations
 func player_animations():
+	particle_trail.emitting = false
+	
 	if is_on_floor():
-		if abs(velocity.z) > 1 or abs(velocity.x) > 1: # Checks if player is moving
+		if abs(velocity.z) > 0.2 or abs(velocity.x) > 0.2: # Checks if player is moving
 			animation.play("Run", 0.5)
+			particle_trail.emitting = true
 		else:
 			animation.play("Idle", 0.5)
 	else:

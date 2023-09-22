@@ -4,7 +4,7 @@
 # ---------------------------- ATTRIBUTION NOT REQUIRED ----------------------------- #
 # ----------------------------------------------------------------------------------- #
 
-extends SpringArm3D
+extends Node3D
 
 # Control Mouse Sensitivity through inspector or from here
 @export var mouse_sensitivity := 0.2
@@ -14,14 +14,13 @@ extends SpringArm3D
 
 func _ready():
 	top_level = true
-	
 	# Confining Mouse Cursor in the game view so it doesnt get in the way of gameplay
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotation_degrees.x -= event.relative.y * mouse_sensitivity
-		rotation_degrees.x = clamp(rotation_degrees.x, -90, -10)
+		rotation_degrees.x = clamp(rotation_degrees.x, -90, -0)
 		
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity
 		rotation_degrees.y = wrapf(rotation_degrees.y, 0, 360)
