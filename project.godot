@@ -10,12 +10,16 @@ config_version=5
 
 [application]
 
-config/name="3DPlatformerDemo"
+config/name="3D Platformer Starter"
 config/tags=PackedStringArray("starterkit")
 run/main_scene="res://Scenes/demo_scene.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/image="res://Assets/Resources/SDSplashScreen.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+AudioManager="*res://Scenes/Audio/AudioManager.tscn"
 
 [filesystem]
 

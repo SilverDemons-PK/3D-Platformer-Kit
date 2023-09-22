@@ -27,12 +27,12 @@ var can_double_jump = false
 @onready var spring_arm = %Gimbal
 
 @onready var particle_trail = $ParticleTrail
+@onready var footsteps = $Footsteps
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
 # ---------- FUNCTIONS ---------- #
-
 
 func _process(delta):
 	player_animations()
@@ -42,7 +42,7 @@ func _process(delta):
 	spring_arm.position = lerp(spring_arm.position, position, delta * follow_lerp_factor)
 	
 	# Player Rotation
-	if velocity.length() > 5:
+	if is_moving():
 		var look_direction = Vector2(velocity.z, velocity.x)
 		model.rotation.y = lerp_angle(model.rotation.y, look_direction.angle(), delta * 12)
 	
@@ -63,28 +63,29 @@ func _process(delta):
 	velocity.y -= gravity * delta
 
 func perform_jump():
+	AudioManager.jump_sfx.play()
+	AudioManager.jump_sfx.pitch_scale = 1.12
+	
 	jumpTween()
 	animation.play("Jump")
 	velocity.y = jump_force
 
-
 func perform_flip_jump():
+	AudioManager.jump_sfx.play()
+	AudioManager.jump_sfx.pitch_scale = 0.8
 	animation.play("Flip", -1, 2)
 	velocity.y = jump_force
 	await animation.animation_finished
 	can_double_jump = false
 	animation.play("Jump", 0.5)
 
-
 func is_moving() -> bool:
 	return abs(velocity.z) > 0 || abs(velocity.x) > 0
-
 
 func jumpTween():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "scale", jumpStretchSize, 0.1)
 	tween.tween_property(self, "scale", Vector3(1,1,1), 0.1)
-
 
 # Get Player Input
 func get_input(_delta):
@@ -98,13 +99,15 @@ func get_input(_delta):
 
 	move_and_slide()
 
-
 # Handle Player Animations
 func player_animations():
 	particle_trail.emitting = false
+	footsteps.stream_paused = true
+	
 	if is_on_floor():
-		if abs(velocity.z) > 0.2 or abs(velocity.x) > 0.2: # Checks if player is moving
+		if is_moving(): # Checks if player is moving
 			animation.play("Run", 0.5)
 			particle_trail.emitting = true
+			footsteps.stream_paused = false
 		else:
 			animation.play("Idle", 0.5)
