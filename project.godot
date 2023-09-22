@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="3D Platformer Starter"
+config/description="A Starter 3D Plaformer Kit For Godot 4."
 config/tags=PackedStringArray("starterkit")
 run/main_scene="res://Scenes/demo_scene.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/image="res://Assets/Resources/SDSplashScreen.png"
-config/icon="res://icon.svg"
+config/icon="res://Assets/Resources/3DPlatformerStarterIcon.svg"
 
 [autoload]
 

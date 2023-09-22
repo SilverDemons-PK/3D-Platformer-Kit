@@ -79,7 +79,7 @@ func perform_flip_jump():
 	can_double_jump = false
 	animation.play("Jump", 0.5)
 
-func is_moving() -> bool:
+func is_moving():
 	return abs(velocity.z) > 0 || abs(velocity.x) > 0
 
 func jumpTween():
