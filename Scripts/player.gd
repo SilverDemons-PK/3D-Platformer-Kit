@@ -33,9 +33,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
 # ---------- FUNCTIONS ---------- #
 
-func _ready():
-	pass
-
 
 func _process(delta):
 	player_animations()
@@ -52,23 +49,35 @@ func _process(delta):
 	# Check if player is grounded or not
 	is_grounded = true if is_on_floor() else false
 	
-	# If grounded, reset the jump count else gravity
+	# Handle Jumping
 	if is_grounded:
 		can_double_jump = true
 	
-	velocity.y -= gravity * delta
-	
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
-			jumpTween()
-			velocity.y = jump_force
-			animation.play("Jump", 0.5)
+			perform_jump()
 		elif can_double_jump:
-			animation.play("Flip", -1, 1.5)
-			velocity.y = jump_force
-			await animation.animation_finished
-			can_double_jump = false
-			animation.play("Jump", 0.5)
+			if is_moving():
+				perform_flip_jump()
+	
+	velocity.y -= gravity * delta
+
+func perform_jump():
+	jumpTween()
+	animation.play("Jump")
+	velocity.y = jump_force
+
+
+func perform_flip_jump():
+	animation.play("Flip", -1, 2)
+	velocity.y = jump_force
+	await animation.animation_finished
+	can_double_jump = false
+	animation.play("Jump", 0.5)
+
+
+func is_moving() -> bool:
+	return abs(velocity.z) > 0 || abs(velocity.x) > 0
 
 
 func jumpTween():
@@ -99,5 +108,3 @@ func player_animations():
 			particle_trail.emitting = true
 		else:
 			animation.play("Idle", 0.5)
-#	else:
-#		animation.play("Jump", 0.3)

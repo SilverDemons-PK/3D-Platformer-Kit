@@ -2264,3 +2264,5 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0.1, 0)
 scale_amount_min = 0.75
 scale_amount_curve = SubResource("Curve_ooin1")
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
