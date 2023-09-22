@@ -19,6 +19,7 @@ extends CharacterBody3D
 
 # Booleans
 var is_grounded = false
+var can_double_jump = false
 
 # Onready Variables
 @onready var model = $gobot
@@ -53,15 +54,21 @@ func _process(delta):
 	
 	# If grounded, reset the jump count else gravity
 	if is_grounded:
-		jump_limit = 2
-	else:
-		velocity.y -= gravity * delta
-
-	# Jumping
-	if Input.is_action_just_pressed("jump") and jump_limit > 0:
-		jumpTween()
-		velocity.y = jump_force
-		jump_limit -= 1
+		can_double_jump = true
+	
+	velocity.y -= gravity * delta
+	
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			jumpTween()
+			velocity.y = jump_force
+			animation.play("Jump", 0.5)
+		elif can_double_jump:
+			animation.play("Flip", -1, 1.5)
+			velocity.y = jump_force
+			await animation.animation_finished
+			can_double_jump = false
+			animation.play("Jump", 0.5)
 
 
 func jumpTween():
@@ -86,12 +93,11 @@ func get_input(_delta):
 # Handle Player Animations
 func player_animations():
 	particle_trail.emitting = false
-	
 	if is_on_floor():
 		if abs(velocity.z) > 0.2 or abs(velocity.x) > 0.2: # Checks if player is moving
 			animation.play("Run", 0.5)
 			particle_trail.emitting = true
 		else:
 			animation.play("Idle", 0.5)
-	else:
-		animation.play("Jump", 0.3)
+#	else:
+#		animation.play("Jump", 0.3)
