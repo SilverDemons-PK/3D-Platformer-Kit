@@ -53,7 +53,7 @@ func _process(delta):
 
 
 # Get Player Input
-func get_input(delta):
+func get_input(_delta):
 	var move_direction := Vector3.ZERO
 	move_direction.x = Input.get_axis("move_left", "move_right")
 	move_direction.z = Input.get_axis("move_forward", "move_back")

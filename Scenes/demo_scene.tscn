@@ -4,7 +4,17 @@
 
 [sub_resource type="Environment" id="Environment_g4ka7"]
 background_mode = 1
-background_color = Color(0.756863, 0.756863, 0.756863, 1)
+background_color = Color(0.764706, 0.764706, 0.764706, 1)
+tonemap_exposure = 0.75
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.647059, 0.678431, 0.72549, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+adjustment_contrast = 1.5
+adjustment_saturation = 1.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2simu"]
 resource_name = "Material1"
@@ -138,7 +148,7 @@ transform = Transform3D(-0.898603, 0.438763, 0, -0.0797549, -0.163341, 0.983341,
 shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(13.0313, 0, 0, 0, 1.30313, 0, 0, 0, 13.0313, 0, 0, 0)
+transform = Transform3D(13, 0, 0, 0, 1.3, 0, 0, 0, 13, 0.0200105, 4.76837e-07, 0.00302696)
 mesh = SubResource("ArrayMesh_noxbg")
 skeleton = NodePath("")
 
