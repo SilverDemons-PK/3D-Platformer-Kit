@@ -26,6 +26,8 @@ func _process(delta):
 	rotate_y(deg_to_rad(3))
 	
 	if is_in_range:
+		var tween = create_tween()
+		tween.tween_property(self, "scale", Vector3.ZERO, 0.4).set_ease(Tween.EASE_IN_OUT)
 		follow_player(delta)
 	
 # Coin Hover Animation
