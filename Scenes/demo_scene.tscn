@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=17 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
 [ext_resource type="PackedScene" uid="uid://cf0w0skqs3k64" path="res://Scenes/player.tscn" id="2_21dfl"]
@@ -34,15 +34,26 @@ adjustment_brightness = 1.06
 adjustment_contrast = 0.95
 adjustment_saturation = 1.09
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yw0tk"]
-albedo_color = Color(0.25098, 0.25098, 0.25098, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_asf4q"]
 size = Vector3(128, 17, 112)
 
 [sub_resource type="SystemFont" id="SystemFont_1ixsq"]
 font_names = PackedStringArray("Star Choco")
 multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_656xb"]
+font_names = PackedStringArray("Star Choco")
+
+[sub_resource type="LabelSettings" id="LabelSettings_igq7x"]
+font = SubResource("SystemFont_656xb")
+font_size = 50
+font_color = Color(0.996094, 0.691406, 0.261719, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_om7om"]
+font_names = PackedStringArray("Star Choco")
+
+[sub_resource type="SystemFont" id="SystemFont_ub50t"]
+font_names = PackedStringArray("Star Choco")
 
 [node name="DemoScene" type="Node3D"]
 
@@ -86,36 +97,6 @@ shadow_enabled = true
 [node name="SpawnPosition" type="Marker3D" parent="Extras"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-
-[node name="CreditsWall" type="CSGBox3D" parent="Extras"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 9)
-use_collision = true
-size = Vector3(10, 6, 1)
-material = SubResource("StandardMaterial3D_yw0tk")
-
-[node name="PlatformerStarter" type="Label3D" parent="Extras/CreditsWall"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.36371, -0.51095)
-text = "3D Platformer Starter Kit By SD Studios"
-font_size = 72
-uppercase = true
-
-[node name="Features" type="Label3D" parent="Extras/CreditsWall"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.363709, -0.51095)
-text = "Features:
-3D Platformer Controller
-Jump & Roll
-Basic Score System
-Demo Level"
-font_size = 72
-uppercase = true
-
-[node name="Credits" type="Label3D" parent="Extras/CreditsWall"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.63629, -0.51095)
-text = "Platform Models By: Rayyan Aziz
-Character By: GDQuest
-Programming & Level Design: Adil Shafiq"
-font_size = 72
-uppercase = true
 
 [node name="Coins" type="Node3D" parent="."]
 
@@ -175,9 +156,32 @@ theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_1ixsq")
 theme_override_font_sizes/font_size = 48
 text = "X 3"
+label_settings = SubResource("LabelSettings_igq7x")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -40)
 texture = ExtResource("9_46gx6")
+
+[node name="Features" type="Label3D" parent="."]
+transform = Transform3D(0.387789, 0, 0.921748, 0, 1, 0, -0.921748, 0, 0.387789, -14.0511, 5.78537, -6.67751)
+text = "Features:
+Working Controller
+Double Jump
+Basic Score System
+Animations"
+font = SubResource("SystemFont_om7om")
+font_size = 250
+outline_size = 0
+uppercase = true
+
+[node name="Credits" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0336823, 4.71136, 8.82437)
+text = "Platform Models By: Rayyan Aziz
+Character By: GDQuest
+Programming & Level Design: Adil Shafiq"
+font = SubResource("SystemFont_ub50t")
+font_size = 100
+outline_size = 0
+uppercase = true
 
 [connection signal="body_entered" from="DeadZone" to="DeadZone" method="_on_body_entered"]
