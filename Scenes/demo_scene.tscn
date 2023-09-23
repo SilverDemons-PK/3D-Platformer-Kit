@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=14 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
 [ext_resource type="PackedScene" uid="uid://cf0w0skqs3k64" path="res://Scenes/player.tscn" id="2_21dfl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
 [ext_resource type="Texture2D" uid="uid://cnbbny7qjh2xn" path="res://Assets/Textures/coin.png" id="7_ow7xm"]
 [ext_resource type="Script" path="res://Scripts/GameUI.gd" id="7_x8whp"]
+[ext_resource type="Texture2D" uid="uid://hk3gj75327hy" path="res://Assets/Textures/Logo.png" id="9_46gx6"]
 
 [sub_resource type="Environment" id="Environment_g4ka7"]
 background_mode = 1
@@ -174,5 +175,9 @@ theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_1ixsq")
 theme_override_font_sizes/font_size = 48
 text = "X 3"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -40)
+texture = ExtResource("9_46gx6")
 
 [connection signal="body_entered" from="DeadZone" to="DeadZone" method="_on_body_entered"]

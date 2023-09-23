@@ -73,6 +73,7 @@ script = ExtResource("1_b8wip")
 [node name="CoinModel" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_khdiv")
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_f1dcy")
 skeleton = NodePath("")
 
