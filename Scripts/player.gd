@@ -9,13 +9,13 @@ extends CharacterBody3D
 # ---------- VARIABLES ---------- #
 
 @export_category("Player Properties")
-@export var move_speed : float
-@export var jump_force : float
-@export var follow_lerp_factor : float
+@export var move_speed : float = 6
+@export var jump_force : float = 5
+@export var follow_lerp_factor : float = 4
 @export var jump_limit : int = 2
 
 @export_group("Game Juice")
-@export var jumpStretchSize : Vector3
+@export var jumpStretchSize := Vector3(0.8, 1.2, 0.8)
 
 # Booleans
 var is_grounded = false

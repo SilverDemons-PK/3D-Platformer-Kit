@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm1hqybgiajgu"]
+[gd_scene load_steps=4 format=3 uid="uid://bm1hqybgiajgu"]
 
 [ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="1_iwfhn"]
 [ext_resource type="AudioStream" uid="uid://lnq3qyt6mylm" path="res://Assets/Audio/SFX/jump.ogg" id="1_rkf2p"]
+[ext_resource type="AudioStream" uid="uid://bw1p5rf0tudfx" path="res://Assets/Audio/SFX/coin.ogg" id="3_j83j2"]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_iwfhn")
@@ -10,3 +11,8 @@ script = ExtResource("1_iwfhn")
 stream = ExtResource("1_rkf2p")
 volume_db = -5.0
 pitch_scale = 1.12
+
+[node name="CoinSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_j83j2")
+volume_db = -5.0
+pitch_scale = 1.2

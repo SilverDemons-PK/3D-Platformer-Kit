@@ -15,12 +15,18 @@ config/description="A Starter 3D Plaformer Kit For Godot 4."
 config/tags=PackedStringArray("starterkit")
 run/main_scene="res://Scenes/demo_scene.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+boot_splash/bg_color=Color(0.0941176, 0.101961, 0.109804, 1)
 boot_splash/image="res://Assets/Resources/SDSplashScreen.png"
 config/icon="res://Assets/Resources/3DPlatformerStarterIcon.svg"
 
 [autoload]
 
 AudioManager="*res://Scenes/Audio/AudioManager.tscn"
+GameManager="*res://Scripts/GameManager.gd"
+
+[display]
+
+window/size/always_on_top=true
 
 [filesystem]
 
