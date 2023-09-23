@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bk5n0tn4k1l0c"]
+[gd_scene load_steps=14 format=3 uid="uid://bk5n0tn4k1l0c"]
 
 [ext_resource type="Script" path="res://Scripts/Coin.gd" id="1_b8wip"]
 [ext_resource type="Texture2D" uid="uid://clhres80vdm85" path="res://Assets/Textures/colormap.png" id="2_u2ql5"]
@@ -67,6 +67,9 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_db7aj"]
 colors = PackedColorArray(0.996078, 0.909804, 0.352941, 1, 1, 1, 1, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_an4m6"]
+radius = 3.47933
+
 [node name="Coin" type="Area3D"]
 script = ExtResource("1_b8wip")
 
@@ -94,4 +97,10 @@ scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_lwc68")
 color_ramp = SubResource("Gradient_db7aj")
 
+[node name="Range" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Range"]
+shape = SubResource("SphereShape3D_an4m6")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
