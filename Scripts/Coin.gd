@@ -7,6 +7,9 @@ extends Area3D
 @export var amplitude := 0.2
 @export var frequency := 4
 
+var time_passed = 0
+
+
 # Vector
 var initial_position := Vector3.ZERO
 
@@ -21,7 +24,6 @@ func _process(delta):
 	
 # Coin Hover Animation
 func coin_hover(delta):
-	var time_passed = 0
 	time_passed += delta
 	
 	var new_y = initial_position.y + amplitude * sin(frequency * time_passed)
