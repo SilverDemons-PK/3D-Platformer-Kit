@@ -2251,6 +2251,9 @@ script = ExtResource("5_pxu3x")
 transform = Transform3D(1, -1.30385e-08, -9.15934e-16, 1.25942e-08, 0.965926, 0.258819, -3.37462e-09, -0.258819, 0.965926, 0, 2, 5)
 current = true
 
+[node name="CameraControlTimer" type="Timer" parent="Gimbal"]
+wait_time = 2.0
+
 [node name="ParticleTrail" type="CPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_02pkc")
 amount = 30
@@ -2267,3 +2270,5 @@ scale_amount_curve = SubResource("Curve_ooin1")
 stream = ExtResource("7_asqdb")
 pitch_scale = 0.75
 autoplay = true
+
+[connection signal="timeout" from="Gimbal/CameraControlTimer" to="Gimbal" method="_on_camera_control_timer_timeout"]
