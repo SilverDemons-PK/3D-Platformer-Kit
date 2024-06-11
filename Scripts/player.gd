@@ -45,6 +45,9 @@ func _process(delta):
 	if is_moving():
 		var look_direction = Vector2(velocity.z, velocity.x)
 		model.rotation.y = lerp_angle(model.rotation.y, look_direction.angle(), delta * 12)
+		if spring_arm.auto_rotate:
+			spring_arm.rotation.y = lerp_angle(spring_arm.rotation.y, look_direction.angle()-deg_to_rad(180), delta*0.4)
+			spring_arm.rotation.x = lerp_angle(spring_arm.rotation.x, deg_to_rad(0), delta*0.4)
 	
 	# Check if player is grounded or not
 	is_grounded = true if is_on_floor() else false
